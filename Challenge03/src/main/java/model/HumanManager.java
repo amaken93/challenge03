@@ -11,6 +11,7 @@ public class HumanManager {
 	private Connection co = null;
 	private PreparedStatement ps = null;
 	private ResultSet rs = null;
+	SqlLogger log = new SqlLogger();
 
 	public void setHuman(String name, String age, String group) {
 		try {
@@ -24,6 +25,8 @@ public class HumanManager {
 			ps.executeUpdate();
 
 			co.commit();
+			log.sqlLogger(sql);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("error dbConnect");
@@ -53,6 +56,8 @@ public class HumanManager {
 				Human human = new Human(name, age, group);
 				list.add(human);
 			}
+
+			log.sqlLogger(sql);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
